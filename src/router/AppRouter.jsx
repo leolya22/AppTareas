@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 import { useAuthStore } from "../hooks/useAuthStore";
 import { Loader } from "../components/Loader/Loader";
+import { LoginPage } from "../pages/auth/LoginPage/LoginPage";
 
 
 export const AppRouter = () => {
