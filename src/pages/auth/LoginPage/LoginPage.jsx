@@ -46,11 +46,7 @@ export const LoginPage = () => {
                         { ...register( 'email', { required: 'Ingrese su email' })}
                         className="input"
                     />
-                    { errors.email && 
-                        <span className="error">
-                            { errors.email.message }
-                        </span>
-                    }
+                    { errors.email && <span className="error">{ errors.email.message }</span> }
                 </div>
                 <div className="formGroup">
                     <label className="label">
@@ -61,11 +57,7 @@ export const LoginPage = () => {
                         { ...register( 'password', { required: 'Ingrese su contraseña' })} 
                         className="input"
                     />
-                    { errors.password && 
-                        <span className="error">
-                            { errors.password.message }
-                        </span>
-                    }
+                    { errors.password && <span className="error"> { errors.password.message }</span> }
                 </div>
                 <button type="submit" className="button">
                     Ingresar

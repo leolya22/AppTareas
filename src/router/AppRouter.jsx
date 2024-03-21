@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useAuthStore } from "../hooks/useAuthStore";
 import { Loader } from "../components/Loader/Loader";
 import { LoginPage } from "../pages/auth/LoginPage/LoginPage";
+import { RegisterPage } from "../pages/auth/RegisterPage/RegisterPage";
 
 
 export const AppRouter = () => {
