@@ -5,6 +5,7 @@ import { useAuthStore } from "../hooks/useAuthStore";
 import { Loader } from "../components/Loader/Loader";
 import { LoginPage } from "../pages/auth/LoginPage/LoginPage";
 import { RegisterPage } from "../pages/auth/RegisterPage/RegisterPage";
+import { TasksPage } from "../pages/TasksPage/TasksPage";
 
 
 export const AppRouter = () => {
@@ -22,10 +23,10 @@ export const AppRouter = () => {
     return (
         <Routes>
             { status === 'not-authenticated' 
-                ? <Routes>
+                ? <>
                     <Route path='/*' element={ <LoginPage /> } />
                     <Route path='/register' element={ <RegisterPage /> } />
-                </Routes>
+                </>
                 : <Route path='/*' element={ <TasksPage /> } />
             }
         </Routes>

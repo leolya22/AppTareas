@@ -42,7 +42,7 @@ export const useAuthStore = () => {
     const checkAuthToken = async () => {
         const token = localStorage.getItem( 'token' );
         if( !token ) {
-            dispatch( onError( 'No se encontro el token' ) );
+            dispatch( onError( null ) );
             return dispatch( onLogout() );
         }
         try {

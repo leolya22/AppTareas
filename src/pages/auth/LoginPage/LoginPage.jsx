@@ -20,7 +20,7 @@ export const LoginPage = () => {
     useEffect( () => {
         errorMessage && setFormError( 'password', { 
             type: 'manual', 
-            message: 'El email o la contraseña son incorrectos' 
+            message: errorMessage 
         });
     }, [ errorMessage ]);
 
