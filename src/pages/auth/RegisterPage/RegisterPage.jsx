@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
@@ -8,14 +7,13 @@ import { useAuthStore } from '../../../hooks/useAuthStore';
 
 
 export const RegisterPage = () => {
-    const { errorMessage } = useSelector( state => state.auth );
+    const { startRegister, errorMessage } = useAuthStore();
     const { 
         register,
         handleSubmit,
         setError: setFormError,
         formState: { errors }
     } = useForm();
-    const { startRegister } = useAuthStore();
 
     useEffect( () => {
         errorMessage && 

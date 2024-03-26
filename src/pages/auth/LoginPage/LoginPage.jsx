@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
@@ -8,14 +7,13 @@ import { useAuthStore } from '../../../hooks/useAuthStore'
 
 
 export const LoginPage = () => {
-    const { errorMessage } = useSelector( state => state.auth );
+    const { startLogin, errorMessage } = useAuthStore();
     const { 
         register, 
         handleSubmit, 
         setError: setFormError, 
         formState: { errors } 
     } = useForm();
-    const { startLogin } = useAuthStore();
 
     useEffect( () => {
         errorMessage && setFormError( 'password', { 
@@ -24,8 +22,8 @@ export const LoginPage = () => {
         });
     }, [ errorMessage ]);
 
-    const handleLogin = ({ email, password }) => {
-        startLogin({ email, password });
+    const handleLogin = async ({ email, password }) => {
+        await startLogin({ email, password });
     };
 
     return (
@@ -54,8 +52,15 @@ export const LoginPage = () => {
                     </label>
                     <input 
                         type="password" 
-                        { ...register( 'password', { required: 'Ingrese su contraseña' })} 
+                        { ...register( 'password', {
+                            required: 'Ingrese su contraseña',
+                            minLength: {
+                                value: 6,
+                                message: 'La contraseña debe tener al menos 6 caracteres'
+                            }
+                        })} 
                         className="input"
+                        autoComplete="ebp_password"
                     />
                     { errors.password && <span className="error"> { errors.password.message }</span> }
                 </div>

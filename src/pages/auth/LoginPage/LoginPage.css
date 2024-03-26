@@ -37,8 +37,9 @@
 
 .error {
     color: red;
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 5px;
+    padding-left: 5px;
 }
 
 .button {

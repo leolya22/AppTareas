@@ -3,12 +3,11 @@ import axios from "axios";
 import { getEnvVariables } from "../../helpers/getEnvVariables";
 
 
-const { API_URL } = getEnvVariables();
+const { VITE_API_URL } = getEnvVariables();
 
 const tasksApi = axios.create({
-    baseURL: API_URL
+    baseURL: VITE_API_URL
 });
-
 tasksApi.interceptors.request.use( config => {
     config.headers = {
         ...config.headers,
