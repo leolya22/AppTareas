@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 
-import './LoginPage.css';
+import styles from './LoginPage.module.css';
 import { useAuthStore } from '../../../hooks/useAuthStore'
 
 

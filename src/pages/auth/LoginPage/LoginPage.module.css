@@ -2,7 +2,7 @@
     max-width: 400px;
     margin: auto;
     margin-top: 150px;
-    border: 2px solid rgb(126, 72, 0);
+    border: 2px solid rgb(4, 208, 223);
     padding: 20px;
     text-align: center;
 }
@@ -31,7 +31,7 @@
 }
 
 .texto {
-    color: rgb(126, 72, 0);
+    color: rgb(4, 62, 223);
     text-decoration: none;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .button {
-    background-color: rgb(149, 85, 0);
+    background-color: rgb(3, 122, 131);
     color: white;
     padding: 10px 15px;
     border: none;
@@ -52,5 +52,5 @@
 }
 
 .button:hover {
-    background-color: rgb(126, 72, 0);
+    background-color: rgb(4, 208, 223);
 }
