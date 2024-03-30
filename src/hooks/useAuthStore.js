@@ -19,12 +19,22 @@ export const useAuthStore = () => {
 
             dispatch( onLogin({ name: data.name, id: data.uid }) );
         } catch ( error ) {
-            console.log( error );
-            dispatch( onError( error.response.data.message ) );
+            dispatch( onError({
+                errors: 
+                    error.response.data.message?.errors 
+                    || error.response.data.errors,
+                values: {
+                    email,
+                    password
+                }
+            }));
             dispatch( onLogout() );
         }
     }
 
+    const onInputChange = () => {
+        dispatch( onError( null ) );
+    }
 
     const startRegister = async ({ name, email, password }) => {
         try {
@@ -71,6 +81,7 @@ export const useAuthStore = () => {
         startLogin,
         startRegister,
         checkAuthToken,
-        startLogout
+        startLogout,
+        onInputChange
     }
 }

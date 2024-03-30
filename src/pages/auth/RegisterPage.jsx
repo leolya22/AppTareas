@@ -2,8 +2,7 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 
-import './RegisterPage.css';
-import { useAuthStore } from '../../../hooks/useAuthStore';
+import { useAuthStore } from '../../hooks/useAuthStore';
 
 
 export const RegisterPage = () => {
@@ -28,14 +27,14 @@ export const RegisterPage = () => {
     };
 
     return (
-        <div className="container">
-            <h1 className="texto">
+        <div className="auth-container">
+            <h1 className="auth-text">
                 Complete el formulario para registrarse
             </h1>
 
-            <form className="form" onSubmit={ handleSubmit( handleRegister ) }>
-                <div className="formGroup">
-                    <label className="label">
+            <form className="auth-form" onSubmit={ handleSubmit( handleRegister ) }>
+                <div className="auth-form-group">
+                    <label className="auth-label">
                         Nombre:
                     </label>
                     <input 
@@ -47,25 +46,25 @@ export const RegisterPage = () => {
                                 message: 'Ingrese su nombre'
                             },
                         })}
-                        className="input"
+                        className="auth-input"
                     />
-                    { errors.name && <span className="error">{ errors.name.message }</span> }
+                    { errors.name && <span className="auth-error">{ errors.name.message }</span> }
                 </div>
 
-                <div className="formGroup">
-                    <label className="label">
+                <div className="auth-form-group">
+                    <label className="auth-label">
                         Email:
                     </label>
                     <input 
                         type="text" 
                         { ...register( 'email', { required: 'El email es obligatorio' })} 
-                        className="input"
+                        className="auth-input"
                     />
-                    { errors.email && <span className="error">{ errors.email.message }</span> }
+                    { errors.email && <span className="auth-error">{ errors.email.message }</span> }
                 </div>
 
-                <div className="formGroup">
-                    <label className="label">
+                <div className="auth-form-group">
+                    <label className="auth-label">
                         Contraseña:
                     </label>
                     <input 
@@ -77,19 +76,19 @@ export const RegisterPage = () => {
                                 message: 'La contraseña tiene que tener minimo 6 digitos' 
                             },
                         })} 
-                        className="input"
+                        className="auth-input"
                     />
-                    { errors.password && <span className="error">{ errors.password.message }</span> }
+                    { errors.password && <span className="auth-error">{ errors.password.message }</span> }
                 </div>
 
-                <button type="submit" className="button">
+                <button type="submit" className="auth-button">
                     Registrarse
                 </button>
             </form>
             <br />
             <p>
                 Ya esta registrado en el sitio? 
-                <Link className="texto" to={ '/login' }>
+                <Link className="auth-text" to={ '/login' }>
                     Ir al login
                 </Link>
             </p>
