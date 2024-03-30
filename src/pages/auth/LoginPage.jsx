@@ -6,7 +6,7 @@ import { useAuthStore } from '../../hooks/useAuthStore'
 
 
 export const LoginPage = () => {
-    const { startLogin, errorMessage, onInputChange } = useAuthStore();
+    const { startLogin, formValidationEffect } = useAuthStore();
     const { 
         register, 
         handleSubmit, 
@@ -17,27 +17,7 @@ export const LoginPage = () => {
         clearErrors
     } = useForm();
 
-    useEffect( () => {
-            for( let error in errorMessage?.errors ) {
-                setFormError( error, { 
-                    type: 'manual', 
-                    message: errorMessage.errors[ error ].msg
-                });
-            }
-            for( let value in errorMessage?.values ) {
-                setValue( value, errorMessage.values[ value ] )
-            }
-    }, [ errorMessage ]);
-
-    useEffect( () => {
-        if( errorMessage != null ) {
-            const subscription = watch( () => {
-                onInputChange();
-                clearErrors()
-            });
-            return () => subscription.unsubscribe();
-        }
-    }, [ watch, errorMessage ]);
+    formValidationEffect( setFormError, setValue, watch );
 
     const handleLogin = async ({ email, password }) => {
         await startLogin({ email, password });
@@ -57,8 +37,11 @@ export const LoginPage = () => {
                         Email:
                     </label>
                     <input 
-                        type="email" 
-                        { ...register( 'email', { required: 'Ingrese su email' })}
+                        type="email"
+                        { ...register( 'email', { 
+                                required: 'Ingrese su email',
+                                onChange: () => clearErrors('email')
+                        })}
                         className="auth-input"
                     />
                     { errors.email && <span className="auth-error">{ errors.email.message }</span> }
@@ -68,13 +51,14 @@ export const LoginPage = () => {
                         Contraseña:
                     </label>
                     <input 
-                        type="password" 
+                        type="password"
                         { ...register( 'password', {
                             required: 'Ingrese su contraseña',
                             minLength: {
                                 value: 6,
                                 message: 'La contraseña debe tener al menos 6 caracteres'
-                            }
+                            },
+                            onChange: () => clearErrors('password')
                         })} 
                         className="auth-input"
                         autoComplete="ebp_password"
