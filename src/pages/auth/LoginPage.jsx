@@ -1,12 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useEffect } from 'react';
-
 import { useAuthStore } from '../../hooks/useAuthStore'
 
 
 export const LoginPage = () => {
     const { startLogin, formValidationEffect } = useAuthStore();
+    const navigate = useNavigate();
     const { 
         register, 
         handleSubmit, 
@@ -21,6 +20,7 @@ export const LoginPage = () => {
 
     const handleLogin = async ({ email, password }) => {
         await startLogin({ email, password });
+        navigate( '/' );
     };
 
     return (
@@ -40,7 +40,7 @@ export const LoginPage = () => {
                         type="email"
                         { ...register( 'email', { 
                                 required: 'Ingrese su email',
-                                onChange: () => clearErrors('email')
+                                onChange: () => clearErrors( 'email' )
                         })}
                         className="auth-input"
                     />
@@ -58,7 +58,7 @@ export const LoginPage = () => {
                                 value: 6,
                                 message: 'La contraseña debe tener al menos 6 caracteres'
                             },
-                            onChange: () => clearErrors('password')
+                            onChange: () => clearErrors( 'password' )
                         })} 
                         className="auth-input"
                         autoComplete="ebp_password"

@@ -1,29 +1,28 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useEffect } from 'react';
 
 import { useAuthStore } from '../../hooks/useAuthStore';
 
 
 export const RegisterPage = () => {
-    const { startRegister, errorMessage } = useAuthStore();
+    const { startRegister, formValidationEffect } = useAuthStore();
+    const navigate = useNavigate();
     const { 
-        register,
-        handleSubmit,
-        setError: setFormError,
-        formState: { errors }
+        register, 
+        handleSubmit, 
+        setError: setFormError, 
+        formState: { errors },
+        setValue,
+        watch,
+        clearErrors
     } = useForm();
 
-    useEffect( () => {
-        errorMessage && 
-        setFormError( 'email', { 
-            type: 'manual',
-            message: 'El email ya esta registrado'
-        })
-    }, [ errorMessage ]);
+    formValidationEffect( setFormError, setValue, watch );
+
 
     const handleRegister = ({ name, email, password }) => {
-        startRegister({ name, email, password })
+        startRegister({ name, email, password });
+        navigate( '/' );
     };
 
     return (
@@ -43,8 +42,9 @@ export const RegisterPage = () => {
                             required: 'Ingrese su nombre', 
                             minLength: { 
                                 value: 3,
-                                message: 'Ingrese su nombre'
+                                message: 'El nombre debe tener 3 digitos minimo'
                             },
+                            onChange: () => clearErrors( 'name' )
                         })}
                         className="auth-input"
                     />
@@ -56,8 +56,14 @@ export const RegisterPage = () => {
                         Email:
                     </label>
                     <input 
-                        type="text" 
-                        { ...register( 'email', { required: 'El email es obligatorio' })} 
+                        type="email" 
+                        { ...register( 
+                            'email',
+                            {
+                                required: 'El email es obligatorio',
+                                onChange: () => clearErrors( 'email' )
+                            }
+                        )} 
                         className="auth-input"
                     />
                     { errors.email && <span className="auth-error">{ errors.email.message }</span> }
@@ -73,8 +79,10 @@ export const RegisterPage = () => {
                             required: 'La contraseña es obligatoria',
                             minLength: { 
                                 value: 6,
-                                message: 'La contraseña tiene que tener minimo 6 digitos' 
+                                message: 'La contraseña tiene que tener minimo 6 digitos',
+                                onChange: () => clearErrors( 'password' )
                             },
+                            
                         })} 
                         className="auth-input"
                     />
@@ -88,7 +96,7 @@ export const RegisterPage = () => {
             <br />
             <p>
                 Ya esta registrado en el sitio? 
-                <Link className="auth-text" to={ '/login' }>
+                <Link className="auth-text" to={ '/' }>
                     Ir al login
                 </Link>
             </p>

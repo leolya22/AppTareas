@@ -38,7 +38,6 @@ export const useAuthStore = () => {
         try {
             const { data } = await tasksApi.post( '/auth', { email, password } );
             localStorage.setItem( 'token', data.token );
-            localStorage.setItem( 'token-init-date', new Date().getTime() );
 
             dispatch( onLogin({ name: data.name, id: data.uid }) );
         } catch ( error ) {
@@ -59,11 +58,19 @@ export const useAuthStore = () => {
         try {
             const { data } = await tasksApi.post( '/auth/new', { name, email, password } );
             localStorage.setItem( 'token', data.token );
-            localStorage.setItem( 'token-init-date', new Date().getTime() );
 
             dispatch( onLogin({ name: data.name, id: data.uid}) );
         } catch ( error ) {
-            dispatch( onError( error.response.data.message ) );
+            dispatch( onError({
+                errors: 
+                    error.response.data.message?.errors 
+                    || error.response.data.errors,
+                values: {
+                    name,
+                    email,
+                    password
+                }
+            }));
             dispatch( onLogout() );
         }
     }
@@ -78,7 +85,6 @@ export const useAuthStore = () => {
         try {
             const { data } = await tasksApi.get( '/auth/renew' );
             localStorage.setItem( 'token', data.token );
-            localStorage.setItem( 'token-init-date', new Date().getTime() );
 
             dispatch( onLogin({ name: data.name, id: data.uid}) );
         } catch ( error ) {
