@@ -7,6 +7,7 @@ export const Tarea = ({ tarea }) => {
         <div className="tarea">
             <li key={ tarea._id }>
                 <h3>{ tarea.title }</h3>
+                <hr />
                 <p>{ tarea.description }</p>
             </li>
         </div>

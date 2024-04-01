@@ -32,7 +32,7 @@ export const TasksPage = () => {
         <>
             <NavBar />
             <div className="tareas-header">
-                <h1>Listado de tareas</h1>
+                <h1 className="tareas-title">Listado de tareas</h1>
                 <div className="tareas-filtro">
                     <label htmlFor="tareas-select">Filtro de tareas: </label>
                     <select 
