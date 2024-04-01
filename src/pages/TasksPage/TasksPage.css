@@ -1,0 +1,12 @@
+.tareas-header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 10px;
+}
+
+.tareas-filtro {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

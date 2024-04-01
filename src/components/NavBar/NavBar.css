@@ -1,7 +1,20 @@
 .navbar {
     display: flex;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: 20px 50px;
     width: 100%;
-    color: red
+    background-color: rgb(197, 230, 233);
+    color: rgb(4, 162, 210);
+    align-items: center;
+}
+
+.logout_button {
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid rgb(4, 162, 210);
+    padding: 5px 10px;
+}
+.logout_button:hover {
+    color: rgb(0, 195, 255);
+    border-color: rgb(0, 195, 255);
 }

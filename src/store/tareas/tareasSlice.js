@@ -15,7 +15,7 @@ export const tareasSlice = createSlice({
         guardarError: ( state, { payload } ) => {
             state.errorMessage = payload;
         },
-        actualizarEstado: ( state ) => {
+        actualizarEstadoTareas: ( state ) => {
             state.status = 'checking';
             state.tareas = [];
         },
@@ -28,6 +28,6 @@ export const tareasSlice = createSlice({
 export const {
     guardarTareas,
     guardarError,
-    actualizarEstado,
+    actualizarEstadoTareas,
     borrarError
 } = tareasSlice.actions;

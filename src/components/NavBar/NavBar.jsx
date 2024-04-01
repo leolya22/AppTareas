@@ -4,12 +4,12 @@ import './NavBar.css'
 
 export const NavBar = () => {
 
-    const { user } = useAuthStore();
+    const { user, startLogout } = useAuthStore();
 
     return (
         <div className="navbar">
             <span className="username">{ user.name }</span>
-            <span className="logout_button">Salir</span>
+            <span className="logout_button" onClick={ startLogout }>Salir</span>
         </div>
     );
 };

@@ -1,14 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import tasksApi from "../api/tasksApi";
 import { onChecking, onError, onLogin, onLogout } from "../store/auth/authSlice";
+import { actualizarEstadoTareas } from "../store/tareas/tareasSlice";
 
 
 export const useAuthStore = () => {
     const { status, user, errorMessage } = useSelector( state => state.auth );
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     
+
+    const startLogout = () => {
+        localStorage.clear();
+        dispatch( onLogout() );
+        dispatch( actualizarEstadoTareas() );
+    }
+
     const formValidationEffect = ( setFormError, setValue, watch ) => {
         useEffect( () => {
             for( let error in errorMessage?.errors ) {
@@ -18,7 +28,7 @@ export const useAuthStore = () => {
                 });
             }
             for( let value in errorMessage?.values ) {
-                setValue( value, errorMessage.values[ value ] )
+                setValue( value, errorMessage.values[ value ] );
             }
         }, [ errorMessage ]);
 
@@ -32,6 +42,10 @@ export const useAuthStore = () => {
         }, [ watch, errorMessage ]);
     }
 
+    const cambiarDePagina = () => {
+        dispatch( onError( null ) );
+    }
+
 
     const startLogin = async ({ email, password }) => {
         dispatch( onChecking() );
@@ -40,6 +54,7 @@ export const useAuthStore = () => {
             localStorage.setItem( 'token', data.token );
 
             dispatch( onLogin({ name: data.name, id: data.uid }) );
+            navigate( '/' );
         } catch ( error ) {
             dispatch( onError({
                 errors: 
@@ -50,7 +65,7 @@ export const useAuthStore = () => {
                     password
                 }
             }));
-            dispatch( onLogout() );
+            startLogout();
         }
     }
 
@@ -60,6 +75,7 @@ export const useAuthStore = () => {
             localStorage.setItem( 'token', data.token );
 
             dispatch( onLogin({ name: data.name, id: data.uid}) );
+            navigate( '/' );
         } catch ( error ) {
             dispatch( onError({
                 errors: 
@@ -71,32 +87,28 @@ export const useAuthStore = () => {
                     password
                 }
             }));
-            dispatch( onLogout() );
+            startLogout();
         }
     }
 
 
     const checkAuthToken = async () => {
         const token = localStorage.getItem( 'token' );
-        if( !token ) {
-            dispatch( onError( null ) );
-            return dispatch( onLogout() );
-        }
+        
         try {
-            const { data } = await tasksApi.get( '/auth/renew' );
-            localStorage.setItem( 'token', data.token );
-
-            dispatch( onLogin({ name: data.name, id: data.uid}) );
+            if( !token ) {
+                dispatch( onError( null ) );
+                startLogout();
+            } else {
+                const { data } = await tasksApi.get( '/auth/renew' );
+                localStorage.setItem( 'token', data.token );
+                dispatch( onLogin({ name: data.name, id: data.uid}) );
+            }
         } catch ( error ) {
             localStorage.clear();
             dispatch( onError( error.response.data.message || null ) );
-            dispatch( onLogout() );
+            startLogout();
         }
-    }
-
-    const startLogout = () => {
-        localStorage.clear();
-        dispatch( onLogout() );
     }
 
     return {
@@ -107,6 +119,7 @@ export const useAuthStore = () => {
         startRegister,
         checkAuthToken,
         startLogout,
-        formValidationEffect
+        formValidationEffect,
+        cambiarDePagina
     }
 }

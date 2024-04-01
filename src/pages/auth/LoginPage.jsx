@@ -1,11 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useAuthStore } from '../../hooks/useAuthStore'
 
 
 export const LoginPage = () => {
-    const { startLogin, formValidationEffect } = useAuthStore();
-    const navigate = useNavigate();
+    const { startLogin, formValidationEffect, cambiarDePagina } = useAuthStore();
     const { 
         register, 
         handleSubmit, 
@@ -20,7 +19,6 @@ export const LoginPage = () => {
 
     const handleLogin = async ({ email, password }) => {
         await startLogin({ email, password });
-        navigate( '/' );
     };
 
     return (
@@ -72,7 +70,7 @@ export const LoginPage = () => {
             <br />
             <p>
                 Aun no tiene usuario en el sitio? 
-                <Link className="auth-text" to={ '/register' }>
+                <Link className="auth-text" to={ '/register' } onClick={ cambiarDePagina }>
                     Registrarse
                 </Link>
             </p>

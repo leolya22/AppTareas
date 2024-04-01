@@ -1,0 +1,11 @@
+.tarea {
+    display: flex;
+    border-radius: 15px;
+    padding: 15px 50px;
+    background-color: rgb(197, 230, 233);
+    margin: 10px;
+}
+
+li {
+    text-decoration: none;
+}

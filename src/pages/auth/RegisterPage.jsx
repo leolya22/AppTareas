@@ -1,12 +1,11 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import { useAuthStore } from '../../hooks/useAuthStore';
 
 
 export const RegisterPage = () => {
-    const { startRegister, formValidationEffect } = useAuthStore();
-    const navigate = useNavigate();
+    const { startRegister, formValidationEffect, cambiarDePagina } = useAuthStore();
     const { 
         register, 
         handleSubmit, 
@@ -22,7 +21,6 @@ export const RegisterPage = () => {
 
     const handleRegister = ({ name, email, password }) => {
         startRegister({ name, email, password });
-        navigate( '/' );
     };
 
     return (
@@ -96,7 +94,7 @@ export const RegisterPage = () => {
             <br />
             <p>
                 Ya esta registrado en el sitio? 
-                <Link className="auth-text" to={ '/' }>
+                <Link className="auth-text" to={ '/' } onClick={ cambiarDePagina }>
                     Ir al login
                 </Link>
             </p>
