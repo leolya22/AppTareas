@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 import { Loader } from "../../components/Loader/Loader";
 import { useTareasStore } from "../../hooks/useTareasStore";
+import { NavBar } from "../../components/NavBar/NavBar";
 
 
 export const TasksPage = () => {
@@ -21,13 +22,16 @@ export const TasksPage = () => {
     }
 
     return (
-        <ul>
-            { tareas.map( tarea => (
-                <li key={ tarea._id }>
-                    <h3>{ tarea.title }</h3>
-                    <p>{ tarea.description }</p>
-                </li>
-            ))}
-        </ul>
+        <>
+            <NavBar />
+            <ul>
+                { tareas.map( tarea => (
+                    <li key={ tarea._id }>
+                        <h3>{ tarea.title }</h3>
+                        <p>{ tarea.description }</p>
+                    </li>
+                ))}
+            </ul>
+        </>
     );
 }
