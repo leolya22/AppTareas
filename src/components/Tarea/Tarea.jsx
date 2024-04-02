@@ -1,14 +1,23 @@
-import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrashAlt, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 import './Tarea.css'
+import { useTareasStore } from '../../hooks/useTareasStore';
 
 
 export const Tarea = ({ tarea }) => {
+    const { activarTarea } = useTareasStore();
 
     return (
         <div className="tarea">
-            <li key={ tarea._id }>
+            <li>
                 <div className='title'>
+                    <FontAwesomeIcon
+                        className='edit_button'
+                        icon={ faEdit }
+                        aria-label="Editar Tarea"
+                        onClick={ () => activarTarea( tarea._id ) }
+                        />
                     <h3>{ tarea.title }</h3>
                     <hr />
                 </div>
@@ -17,11 +26,16 @@ export const Tarea = ({ tarea }) => {
                 </p>
                 <div className='buttons'>
                     <hr />
-                    <div className='vertical-buttons'>
-                        <Link to='' className="edit_button">Editar</Link>
-                        <span className="complete_button">Completar</span>
-                    </div>
-                    <span className="borrar_button">Borrar</span>
+                    <FontAwesomeIcon
+                        className="complete_button"
+                        icon={ faCheck }
+                        aria-label="Completar Tarea"
+                    />
+                    <FontAwesomeIcon
+                        className="borrar_button"
+                        icon={ faTrashAlt }
+                        aria-label="Borrar Tarea"
+                    />
                 </div>
             </li>
         </div>

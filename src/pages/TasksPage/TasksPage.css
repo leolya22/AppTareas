@@ -8,6 +8,7 @@
 .tareas-filtro {
     display: flex;
     flex-direction: column;
+    text-align: center;
     gap: 10px;
     color: rgb(4, 162, 210);
 }
@@ -27,4 +28,16 @@ h2.tareas-title {
     outline-color: rgb(4, 162, 210);
     color: rgb(4, 162, 210);
     width: 140px;
+}
+
+.add_button {
+    position: fixed;
+    cursor: pointer;
+    right: 25px;
+    bottom: 25px;
+    font-size: 200%;
+    color: rgb(0, 195, 255);
+    padding: 20px;
+    background-color: rgb(3, 81, 149);
+    border-radius: 50%;
 }

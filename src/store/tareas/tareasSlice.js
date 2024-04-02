@@ -19,6 +19,7 @@ export const tareasSlice = createSlice({
         actualizarEstadoTareas: ( state ) => {
             state.status = 'checking';
             state.tareas = [];
+            state.activeTask = null;
         },
         borrarError: ( state ) => {
             state.errorMessage = null;
@@ -36,5 +37,7 @@ export const {
     guardarTareas,
     guardarError,
     actualizarEstadoTareas,
-    borrarError
+    borrarError,
+    setActiveTask,
+    unSetActiveTask
 } = tareasSlice.actions;

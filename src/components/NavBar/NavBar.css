@@ -6,12 +6,13 @@
     background-color: rgb(197, 230, 233);
     color: rgb(4, 162, 210);
     align-items: center;
+    font-size: 120%;
 }
 
 .logout_button {
     cursor: pointer;
     border: 1px solid rgb(4, 162, 210);
-    padding: 5px 10px;
+    padding: 10px 15px;
 }
 .logout_button:hover {
     color: rgb(0, 195, 255);
