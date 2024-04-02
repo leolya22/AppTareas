@@ -16,6 +16,10 @@
     color: rgb(4, 162, 210);
 }
 
+h2.tareas-title {
+    margin-left: auto;
+}
+
 #tareas-select {
     padding: 8px;
     text-align: center;

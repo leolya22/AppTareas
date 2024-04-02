@@ -5,6 +5,7 @@ export const tareasSlice = createSlice({
     initialState: {
         status: 'checking',
         tareas: [],
+        activeTask: null,
         errorMessage: null
     },
     reducers: {
@@ -21,6 +22,12 @@ export const tareasSlice = createSlice({
         },
         borrarError: ( state ) => {
             state.errorMessage = null;
+        },
+        setActiveTask: ( state, { payload } ) => {
+            state.activeTask = payload;
+        },
+        unSetActiveTask: ( state ) => {
+            state.activeTask = null;
         }
     },
 })

@@ -1,25 +1,59 @@
 .tarea {
-    display: flex;
     border-radius: 15px;
-    padding: 15px 50px;
+    padding: 10px 20px;
     background-color: rgb(197, 230, 233);
     margin: 10px;
 }
 
 li {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 50px;
     list-style: none;
 }
 
-li h3 {
-    max-width: 200px;
-}
-
-li hr {
-    height: 200%;
+hr {
+    height: 70px;
     background-color: rgb(145, 144, 144);
     border: none;
     width: 1px;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 170px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    align-items: center;
+    text-align: center;
+}
+
+.edit_button, .complete_button, .borrar_button {
+    text-decoration: none;
+    cursor: pointer;
+    background-color: rgb(76, 212, 253);
+    box-shadow: 1px 1px 1px 1px rgba(145, 144, 144, 0.5);
+    padding: 5px 10px;
+}
+
+.complete_button {
+    background-color: rgb(38, 38, 250);
+    color: rgb(171, 210, 247);
+}
+
+.borrar_button {
+    background-color: rgb(253, 50, 50);
+}
+
+.vertical-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

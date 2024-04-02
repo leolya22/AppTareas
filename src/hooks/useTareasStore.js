@@ -5,7 +5,7 @@ import { guardarError, guardarTareas } from "../store/tareas/tareasSlice";
 
 
 export const useTareasStore = () => {
-    const { status, tareas, errorMessage } = useSelector( state => state.tareas );
+    const { status, tareas, errorMessage, activeTask } = useSelector( state => state.tareas );
     const dispatch = useDispatch();
 
     const recibirTareas = async () => {
@@ -22,6 +22,7 @@ export const useTareasStore = () => {
         status,
         tareas,
         errorMessage,
+        activeTask,
         recibirTareas,
     }
 }
