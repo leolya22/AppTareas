@@ -1,58 +1,23 @@
-import { useForm } from "react-hook-form";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faSave } from "@fortawesome/free-solid-svg-icons";
-import Swal from "sweetalert2";
-
-import { useTareasStore } from "../../hooks/useTareasStore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useForm } from "react-hook-form";
 import "./EditarTarea.css"
 
+import { useTareasStore } from "../../hooks/useTareasStore";
 
-export const EditarTarea = () => {
+
+export function EditarTarea ({ volver, guardarTarea, onChangeInput }) {
     const { 
         register, 
         handleSubmit,
         formState: { errors },
+        clearErrors,
         setError,
-        setValue,
-        clearErrors
+        setValue
     } = useForm();
-
-    const {
-        activeTask,
-        desactivarTarea,
-        crearTarea,
-        editarTarea,
-        formTareasEffect,
-        onChangeInput
-    } = useTareasStore();
+    const { formTareasEffect } = useTareasStore();
 
     formTareasEffect( setError, setValue );
-
-    const guardarTarea = async ({ title, description }) => {
-        title = title.trim();
-        description = description.trim();
-        if( activeTask == "" ) {
-            crearTarea({ title, description });
-        } else {
-            editarTarea({ title, description });
-        }
-    }
-
-    const volver = () => {
-        Swal.fire({
-            title: 'Vas a perder todos los cambios, estas seguro que queres salir?',
-            showDenyButton: true,
-            confirmButtonText: 'Salir',
-            denyButtonText: `Cancelar`,
-            icon: 'question'
-        }).then( ( result ) => {
-            if ( result.isConfirmed ) {
-                desactivarTarea();
-                onChangeInput( clearErrors, 'title' );
-            }
-        })
-    }
-
 
     return (
         <div className="auth-container">

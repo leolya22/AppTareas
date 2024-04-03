@@ -6,8 +6,8 @@ import { Loader } from "../../components/Loader/Loader";
 import { useTareasStore } from "../../hooks/useTareasStore";
 import { NavBar } from "../../components/NavBar/NavBar";
 import { Tarea } from "../../components/Tarea/Tarea";
-import { EditarTarea } from "../../components/EditarTarea/EditarTarea";
 import './TasksPage.css'
+import { EditarTareaContainer } from "../../components/EditarTarea/EditarTareaContainer";
 
 
 export const TasksPage = () => {
@@ -33,7 +33,7 @@ export const TasksPage = () => {
 
     if( activeTask != null ) {
         return (
-            <EditarTarea />
+            <EditarTareaContainer />
         )
     }
 
