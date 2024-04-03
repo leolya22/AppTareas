@@ -18,6 +18,11 @@
 }
 
 h2.tareas-title {
+    display: flex;
+    justify-content: center;
+}
+
+h2.tareas-title {
     margin-left: auto;
 }
 

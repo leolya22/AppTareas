@@ -1,40 +1,32 @@
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faSave } from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
 
 import { useTareasStore } from "../../hooks/useTareasStore";
 import "./EditarTarea.css"
-import { useDispatch } from "react-redux";
-import { borrarError } from "../../store/tareas/tareasSlice";
 
 
 export const EditarTarea = () => {
     const { 
         register, 
-        handleSubmit, 
-        setError, 
+        handleSubmit,
         formState: { errors },
+        setError,
         setValue,
         clearErrors
     } = useForm();
-    const { activeTask, tareas, errorMessage, desactivarTarea, crearTarea, editarTarea } = useTareasStore();
-    const dispatch = useDispatch();
 
-    useEffect( () => {
-        setError( 'title', { 
-            type: 'manual', 
-            message: errorMessage
-        });
-    }, [ errorMessage ])
+    const {
+        activeTask,
+        desactivarTarea,
+        crearTarea,
+        editarTarea,
+        formTareasEffect,
+        onChangeInput
+    } = useTareasStore();
 
-    useEffect( () => {
-        if( activeTask != "" ) {
-            const { title, description } = tareas.find( tarea => tarea._id == activeTask );
-            setValue( 'title', title );
-            setValue( 'description', description );
-        }
-    }, []);
+    formTareasEffect( setError, setValue );
 
     const guardarTarea = async ({ title, description }) => {
         title = title.trim();
@@ -47,14 +39,20 @@ export const EditarTarea = () => {
     }
 
     const volver = () => {
-        const confirmation = confirm( 'Vas a perder todos los cambios, estas seguro que queres salir?' );
-        confirmation && desactivarTarea();
+        Swal.fire({
+            title: 'Vas a perder todos los cambios, estas seguro que queres salir?',
+            showDenyButton: true,
+            confirmButtonText: 'Salir',
+            denyButtonText: `Cancelar`,
+            icon: 'question'
+        }).then( ( result ) => {
+            if ( result.isConfirmed ) {
+                desactivarTarea();
+                onChangeInput( clearErrors, 'title' );
+            }
+        })
     }
 
-    const onChangeInput = ( type ) => {
-        clearErrors( type );
-        dispatch( borrarError() );
-    }
 
     return (
         <div className="auth-container">
@@ -70,10 +68,10 @@ export const EditarTarea = () => {
                         Titulo:
                     </label>
                     <input 
-                        type="title"
+                        type='title'
                         { ...register( 'title', { 
                                 required: 'El titulo es obligatorio',
-                                onChange: () => onChangeInput( 'title' )
+                                onChange: () => onChangeInput( clearErrors, 'title' )
                         })}
                         className="auth-input"
                     />

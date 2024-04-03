@@ -20,6 +20,7 @@ export const tareasSlice = createSlice({
             state.status = 'checking';
             state.tareas = [];
             state.activeTask = null;
+            state.errorMessage = null;
         },
         borrarError: ( state ) => {
             state.errorMessage = null;

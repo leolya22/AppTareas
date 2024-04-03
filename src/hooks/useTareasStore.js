@@ -1,7 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 import tasksApi from "../api/tasksApi";
-import { actualizarEstadoTareas, guardarError, guardarTareas, setActiveTask, unSetActiveTask } from "../store/tareas/tareasSlice";
+import {
+    actualizarEstadoTareas,
+    borrarError,
+    guardarError,
+    guardarTareas,
+    setActiveTask,
+    unSetActiveTask
+} from "../store/tareas/tareasSlice";
 
 
 export const useTareasStore = () => {
@@ -16,6 +24,30 @@ export const useTareasStore = () => {
             console.log( error );
             dispatch( guardarError() );
         }
+    }
+
+    const formTareasEffect = ( setError, setValue ) => {
+        useEffect( () => {
+            if( errorMessage != null ) {
+                setError( 'title', { 
+                    type: 'manual', 
+                    message: errorMessage
+                })
+            } 
+        }, [ errorMessage ]);
+
+        useEffect( () => {
+            if( activeTask != "" ) {
+                const { title, description } = tareas.find( tarea => tarea._id == activeTask );
+                setValue( 'title', title );
+                setValue( 'description', description );
+            }
+        }, []);
+    }
+
+    const onChangeInput = ( clearErrors, type ) => {
+        clearErrors( type );
+        dispatch( borrarError() );
     }
 
     const activarTarea = ( id ) => {
@@ -44,7 +76,26 @@ export const useTareasStore = () => {
             await tasksApi.put( '/tareas/' + activeTask, { title, description } );
             dispatch( actualizarEstadoTareas() );
         } catch ( error ) {
-            dispatch( guardarError( error.response.data.errors.title.msg ) );
+            console.log(error);
+            dispatch( guardarError( error.response.data.message ) );
+        }
+    }
+
+    const completarTarea = async ( id ) => {
+        try {
+            await tasksApi.put( '/tareas/completar/' + id );
+            dispatch( actualizarEstadoTareas() );
+        } catch ( error ) {
+            dispatch( guardarError( error.response.data.message ) );
+        }
+    }
+
+    const eliminarTarea = async ( id ) => {
+        try {
+            await tasksApi.delete( '/tareas/' + id );
+            dispatch( actualizarEstadoTareas() );
+        } catch ( error ) {
+            dispatch( guardarError( error.response.data.message ) );
         }
     }
 
@@ -57,6 +108,10 @@ export const useTareasStore = () => {
         activarTarea,
         desactivarTarea,
         crearTarea,
-        editarTarea
+        editarTarea,
+        onChangeInput,
+        formTareasEffect,
+        completarTarea,
+        eliminarTarea
     }
 }

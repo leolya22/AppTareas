@@ -76,7 +76,9 @@ export const useAuthStore = () => {
 
             dispatch( onLogin({ name: data.name, id: data.uid}) );
             navigate( '/' );
+            startLogout();
         } catch ( error ) {
+            console.log(error);
             dispatch( onError({
                 errors: 
                     error.response.data.message?.errors 
