@@ -18,11 +18,11 @@ export const RegisterPage = () => {
 
     formValidationEffect( setFormError, setValue, watch );
 
-
     const handleRegister = ({ name, email, password }) => {
         startRegister({ name, email, password });
     };
 
+    
     return (
         <div className="auth-container">
             <h1 className="auth-text">

@@ -3,9 +3,9 @@ import { useEffect } from "react";
 
 import { useAuthStore } from "../hooks/useAuthStore";
 import { Loader } from "../components/Loader/Loader";
-import { TasksPage } from "../pages/TasksPage/TasksPage";
 import { LoginPage } from "../pages/auth/LoginPage";
 import { RegisterPage } from "../pages/auth/RegisterPage";
+import { TasksPageContainer } from "../pages/TasksPage/TasksPageContainer";
 
 
 export const AppRouter = () => {
@@ -27,7 +27,7 @@ export const AppRouter = () => {
                     <Route path='/*' element={ <LoginPage /> } />
                     <Route path='/register' element={ <RegisterPage /> } />
                 </>
-                : <Route path='/*' element={ <TasksPage /> } />
+                : <Route path='/*' element={ <TasksPageContainer /> } />
             }
         </Routes>
     )

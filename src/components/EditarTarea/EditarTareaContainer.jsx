@@ -1,6 +1,4 @@
 import { useForm } from "react-hook-form";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faSave } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 
 import { useTareasStore } from "../../hooks/useTareasStore";
@@ -9,11 +7,6 @@ import { EditarTarea } from "./EditarTarea";
 
 export const EditarTareaContainer = () => {
     const { 
-        register, 
-        handleSubmit,
-        formState: { errors },
-        setError,
-        setValue,
         clearErrors
     } = useForm();
 

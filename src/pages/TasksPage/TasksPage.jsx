@@ -1,42 +1,13 @@
-import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import { Loader } from "../../components/Loader/Loader";
-import { useTareasStore } from "../../hooks/useTareasStore";
 import { NavBar } from "../../components/NavBar/NavBar";
 import { Tarea } from "../../components/Tarea/Tarea";
 import './TasksPage.css'
-import { EditarTareaContainer } from "../../components/EditarTarea/EditarTareaContainer";
 
 
-export const TasksPage = () => {
-
-    const { status, tareas, activeTask, recibirTareas, activarTarea } = useTareasStore();
-    const [ selectedValue, setSelectedValue ] = useState( '' );
-
-    const handleChange = ( event ) => {
-        setSelectedValue( event.target.value );
-    };
-
-    useEffect( () => {
-        if( status === 'checking' ) {
-            recibirTareas();
-        }
-    }, [ status ])
-
-    if( status === 'checking' ) {
-        return (
-            <Loader />
-        )
-    }
-
-    if( activeTask != null ) {
-        return (
-            <EditarTareaContainer />
-        )
-    }
-
+export const TasksPage = ({ tareas, activarTarea, selectedValue, handleChange }) => {
+    
     return (
         <>
             <NavBar />

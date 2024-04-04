@@ -78,7 +78,6 @@ export const useAuthStore = () => {
             navigate( '/' );
             startLogout();
         } catch ( error ) {
-            console.log(error);
             dispatch( onError({
                 errors: 
                     error.response.data.message?.errors 

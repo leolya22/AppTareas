@@ -5,6 +5,10 @@
     margin: 10px;
 }
 
+.completed {
+    background-color: rgb(150, 187, 191);
+}
+
 li {
     display: flex;
     justify-content: space-between;

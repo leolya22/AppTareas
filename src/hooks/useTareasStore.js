@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 import tasksApi from "../api/tasksApi";
 import {
@@ -15,6 +16,32 @@ import {
 export const useTareasStore = () => {
     const { status, tareas, errorMessage, activeTask } = useSelector( state => state.tareas );
     const dispatch = useDispatch();
+
+    const tareaEffect = () => {
+        useEffect( () => {
+            if( errorMessage != null ) {
+                Swal.fire({
+                    title: 'Error',
+                    text: errorMessage,
+                    icon: 'error'
+                })
+                dispatch( borrarError() );
+            } 
+        }, [ errorMessage ]);
+    }
+
+    const validarEstado = ( tarea ) => {
+        if( tarea.status == 'completed' ){
+            Swal.fire({
+                title: 'Error',
+                text: 'No se puede modificar/completar una tarea que ya esta completada',
+                icon: 'error'
+            })
+        } else {
+            activarTarea( tarea._id );
+        }
+    }
+
 
     const recibirTareas = async () => {
         try {
@@ -112,6 +139,8 @@ export const useTareasStore = () => {
         onChangeInput,
         formTareasEffect,
         completarTarea,
-        eliminarTarea
+        eliminarTarea,
+        tareaEffect,
+        validarEstado
     }
 }
